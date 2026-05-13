@@ -1,0 +1,89 @@
+{
+  "paths": {
+    "input_dir": "input_data",
+    "output_dir": "output_data",
+    "roads_file": "roads.gpkg",
+    "origins_file": "origins.gpkg",
+    "parks_file": "parks.gpkg",
+    "output_file": "parking_results.gpkg",
+    "center_bound_file": "center_bound.gpkg"
+  },
+  "layers": {
+    "roads_layer": "roads",
+    "origins_layer": "origins",
+    "parks_layer": "parks",
+    "origins_result_layer": "origins_result",
+    "parks_result_layer": "parks_result",
+    "center_bound_layer": "center_bound"
+  },
+  "columns": {
+    "origin_id_col": "origin_id",
+    "origin_demand_col": "D",
+    "park_id_col": "parking_id",
+    "park_capacity_col": "C"
+  },
+  "graph_config": {
+    "walking_speed_kmh": 4.8,
+    "time_field": null,
+    "speed_field_kmh": null,
+    "bidirectional": true
+  },
+  "model_config": {
+    "cutoff_min": 10.0,
+    "tol": 1e-9,
+    "max_iter": 300,
+    "log_every": 1,
+    "verbose": true,
+    "probability_function": {
+      "type": "builtin",
+      "name": "p_walk_exponential",
+      "parameters": {
+        "t0": 5.0,
+        "t1": 10.0,
+        "p_at_t1": 0.1
+      }
+    }
+  },
+  "visualization": {
+    "enabled": true,
+    "output_dir": "visualizations",
+    "show_roads": true,
+    "figsize": [12, 10]
+  },
+  "demand_categories": [
+    {
+      "name": "naselenie",
+      "column": "NASELENIE",
+      "coefficients": {
+        "first_multiplier": 0.5,
+        "second_multiplier": 0.3
+      }
+    },
+    {
+      "name": "workers",
+      "column": "WORKERS",
+      "coefficients": {
+        "scaling_multiplier": 0.35,
+        "share1": 0.763,
+        "share2": 0.92
+      }
+    },
+    {
+      "name": "posetiteli",
+      "column": "POSETITELI",
+      "coefficients": {
+        "share1": 0.3,
+        "share2": 0.1,
+        "share3": 0.68
+      }
+    }
+  ],
+  "scenario": {
+    "type": "existing",
+    "paid_parking": {
+      "enabled": false,
+      "workers_release_rate": 0.7
+    }
+  }
+}
+
